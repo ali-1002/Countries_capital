@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Country</title>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/font/bootstrap-icons.css' %}">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    {% block extra_css %}
+
+    {% endblock %}
+</head>
+<body>
+    {% include 'layouts/navbar.html' %}
+
+    <div class="container pt-5">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+</html>

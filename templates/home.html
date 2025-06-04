@@ -1,0 +1,86 @@
+{% extends 'layouts/base.html' %}
+
+{% block extra_css %}
+<style>
+    .my_button {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .buttons {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mb-3 d-flex justify-content-end">
+    <a href="{% url 'add_country' %}" class="btn btn-success bi bi-plus-circle fw-bolder"><span class="">Add country</span></a>
+</div>
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Country</th>
+            <th scope="col">Country population</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Capital population</th>
+            <th scope="col">Flag</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for country in countries_objects %}
+        <tr>
+            <th scope="row">{{ country.id }}</th>
+            <td><a href="{% url 'countries' id=country.id %}" class="text-зкшьфкн text-decoration-none">{{ country.country_name }}</a></td>
+            <td>{{ country.country_population }}</td>
+            <td>{{ country.capital_name }}</td>
+            <td>{{ country.capital_population }}</td>
+            <td>
+                <img src="{{ country.country_flag_photos.url }}" alt="{{ country_flag_photos }}" height="50" width="70">
+            </td>
+            <td class="buttons">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ country.id }}">
+                    <i class="bi bi-trash my_button"></i>
+                </button>
+            </td>
+        </tr>
+        <div class="modal fade" id="staticBackdrop-{{ country.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete country</h1>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete <b>{{ country.country_name }}</b>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <a href="{% url 'country_delete' id=country.id %}" class="btn btn-primary">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        {% if request.GET.q %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <div>
+                Siz qidirgan <b>{{ request.GET.q }}</b> qiymat orqali ma'lumot topilmadi.
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            <div>
+                Countries ma'lumotlari mavjud emas!
+            </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

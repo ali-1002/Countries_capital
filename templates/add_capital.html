@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card shadow">
+            <div class="card-header">Add new capital</div>
+            <div class="card-body">
+                <form action="" class="p-4" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="col-12 d-flex justify-content-center gap-2">
+                        <a href="#" class="btn btn-warning px-4"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                        <a href="#" class="btn btn-danger px-4"><i class="bi bi-trash me-2"></i>Delete</a>
+                        <button type="submit" class="btn btn-success px-5"><i class="bi bi-download  me-2"></i>Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
